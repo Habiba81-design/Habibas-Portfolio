@@ -1,0 +1,38 @@
+{% extends "admin_base.html" %}
+{% block title %}Projects{% endblock %}
+{% block content %}
+<h1 style="color:#fff;">Projects</h1>
+
+<div class="card">
+  <h3>Add a project</h3>
+  <form method="POST">
+    <label>Title</label><input name="title" required>
+    <div class="row">
+      <div><label>Category (ml / nlp / cv / ts)</label><input name="category" value="ml" required></div>
+      <div><label>Metric badge</label><input name="metric" placeholder="0.91 AUC"></div>
+    </div>
+    <label>Description</label><textarea name="description" rows="2"></textarea>
+    <label>Tags (comma separated)</label><input name="tags" placeholder="PyTorch, Docker, Airflow">
+    <div class="row">
+      <div><label>GitHub URL</label><input name="github_url" placeholder="https://github.com/..."></div>
+      <div><label>Demo URL</label><input name="demo_url" placeholder="https://..."></div>
+    </div>
+    <label>Sort order (lower = first)</label><input name="sort_order" type="number" value="0">
+    <button type="submit">▸ add project</button>
+  </form>
+</div>
+
+<table>
+  <tr><th>Title</th><th>Category</th><th>Metric</th><th></th></tr>
+  {% for p in projects %}
+  <tr>
+    <td>{{ p.title }}</td><td>{{ p.category }}</td><td>{{ p.metric }}</td>
+    <td>
+      <form class="del-form" method="POST" action="{{ url_for('admin_delete_project', project_id=p.id) }}" onsubmit="return confirm('Delete this project?');">
+        <button class="danger" type="submit">delete</button>
+      </form>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}

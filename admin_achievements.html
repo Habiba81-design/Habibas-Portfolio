@@ -1,0 +1,35 @@
+{% extends "admin_base.html" %}
+{% block title %}Achievements{% endblock %}
+{% block content %}
+<h1 style="color:#fff;">Achievements &amp; Competitions</h1>
+
+<div class="card">
+  <h3>Add an achievement</h3>
+  <form method="POST">
+    <div class="row">
+      <div><label>Icon (emoji)</label><input name="icon" value="🏆"></div>
+      <div><label>Title</label><input name="title" required></div>
+    </div>
+    <label>Description</label><input name="description">
+    <div class="row">
+      <div><label>Date label</label><input name="date_label" placeholder="2025"></div>
+      <div><label>Sort order</label><input name="sort_order" type="number" value="0"></div>
+    </div>
+    <button type="submit">▸ add achievement</button>
+  </form>
+</div>
+
+<table>
+  <tr><th>Icon</th><th>Title</th><th>Date</th><th></th></tr>
+  {% for a in entries %}
+  <tr>
+    <td>{{ a.icon }}</td><td>{{ a.title }}</td><td>{{ a.date_label }}</td>
+    <td>
+      <form class="del-form" method="POST" action="{{ url_for('admin_delete_achievement', entry_id=a.id) }}" onsubmit="return confirm('Delete this achievement?');">
+        <button class="danger" type="submit">delete</button>
+      </form>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}

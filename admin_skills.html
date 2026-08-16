@@ -1,0 +1,36 @@
+{% extends "admin_base.html" %}
+{% block title %}Skills{% endblock %}
+{% block content %}
+<h1 style="color:#fff;">Skills</h1>
+
+<div class="card">
+  <h3>Add a skill</h3>
+  <form method="POST">
+    <label>Category name (existing or new)</label><input name="category_name" required placeholder="ML / Deep Learning">
+    <div class="row">
+      <div><label>Skill name</label><input name="skill_name" required placeholder="PyTorch"></div>
+      <div><label>Level (0-100)</label><input name="level" type="number" min="0" max="100" value="70"></div>
+    </div>
+    <button type="submit">▸ add skill</button>
+  </form>
+</div>
+
+{% for cat, skills in skills_by_cat.items() %}
+<div class="card">
+  <h3>{{ cat }}</h3>
+  <table>
+    <tr><th>Skill</th><th>Level</th><th></th></tr>
+    {% for s in skills %}
+    <tr>
+      <td>{{ s.name }}</td><td>{{ s.level }}%</td>
+      <td>
+        <form class="del-form" method="POST" action="{{ url_for('admin_delete_skill', skill_id=s.id) }}" onsubmit="return confirm('Delete this skill?');">
+          <button class="danger" type="submit">delete</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+{% endfor %}
+{% endblock %}

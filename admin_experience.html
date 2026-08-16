@@ -1,0 +1,33 @@
+{% extends "admin_base.html" %}
+{% block title %}Experience{% endblock %}
+{% block content %}
+<h1 style="color:#fff;">Experience</h1>
+
+<div class="card">
+  <h3>Add an experience entry</h3>
+  <form method="POST">
+    <div class="row">
+      <div><label>Role</label><input name="role" required></div>
+      <div><label>Organization</label><input name="org"></div>
+    </div>
+    <label>Date range</label><input name="date_range" placeholder="2024 — Present">
+    <label>Bullets (one per line)</label><textarea name="bullets" rows="4"></textarea>
+    <label>Sort order (lower = first / more recent)</label><input name="sort_order" type="number" value="0">
+    <button type="submit">▸ add entry</button>
+  </form>
+</div>
+
+<table>
+  <tr><th>Role</th><th>Org</th><th>Dates</th><th></th></tr>
+  {% for e in entries %}
+  <tr>
+    <td>{{ e.role }}</td><td>{{ e.org }}</td><td>{{ e.date_range }}</td>
+    <td>
+      <form class="del-form" method="POST" action="{{ url_for('admin_delete_experience', entry_id=e.id) }}" onsubmit="return confirm('Delete this entry?');">
+        <button class="danger" type="submit">delete</button>
+      </form>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}

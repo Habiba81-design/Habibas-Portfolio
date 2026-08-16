@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><title>Admin login</title>
+<style>
+  body{ background:#0A0E14; color:#DCE3EC; font-family:'JetBrains Mono',monospace; display:flex; align-items:center; justify-content:center; height:100vh; margin:0; }
+  form{ background:#0F1520; border:1px solid rgba(148,163,184,0.15); padding:32px; border-radius:10px; width:300px; }
+  h1{ font-size:16px; margin:0 0 18px; }
+  input{ width:100%; padding:10px; margin-bottom:14px; background:#131B29; border:1px solid rgba(148,163,184,0.15); border-radius:6px; color:#DCE3EC; font-family:inherit; }
+  button{ width:100%; padding:10px; background:#3ECF8E; border:none; border-radius:6px; color:#04140C; font-weight:700; cursor:pointer; font-family:inherit; }
+  .flash{ color:#FF6B6B; font-size:12.5px; margin-bottom:12px; }
+</style></head>
+<body>
+  <form method="POST">
+    <h1>$ admin login</h1>
+    {% with messages = get_flashed_messages() %}
+      {% for m in messages %}<div class="flash">{{ m }}</div>{% endfor %}
+    {% endwith %}
+    <input type="password" name="password" placeholder="password" autofocus required>
+    <button type="submit">▸ login</button>
+  </form>
+</body></html>

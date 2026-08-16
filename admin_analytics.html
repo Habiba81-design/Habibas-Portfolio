@@ -1,0 +1,22 @@
+{% extends "admin_base.html" %}
+{% block title %}Analytics{% endblock %}
+{% block content %}
+<h1 style="color:#fff;">Visit analytics</h1>
+<div class="stats">
+  <div class="stat"><div class="num">{{ total }}</div><div class="label">total visits (all time)</div></div>
+</div>
+<div class="card">
+  <h3>Last 14 days</h3>
+  <table>
+    <tr><th>Day</th><th>Visits</th><th></th></tr>
+    {% for row in series %}
+    <tr>
+      <td>{{ row.day }}</td>
+      <td>{{ row.count }}</td>
+      <td><div style="background:var(--accent); height:8px; border-radius:4px; width:{{ (row.count / (series|map(attribute='count')|max or 1) * 100)|round|int }}%;"></div></td>
+    </tr>
+    {% endfor %}
+  </table>
+  <p style="color:var(--dim); font-size:12px;">A "visit" is counted once per page load of the homepage (not deduplicated by visitor — a simple hit counter, not full analytics).</p>
+</div>
+{% endblock %}

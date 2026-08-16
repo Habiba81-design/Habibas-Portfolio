@@ -1,0 +1,21 @@
+{% extends "admin_base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<h1 style="color:#fff;">Overview</h1>
+<div class="stats">
+  <div class="stat"><div class="num">{{ project_count }}</div><div class="label">projects</div></div>
+  <div class="stat"><div class="num">{{ total_messages }}</div><div class="label">messages ({{ unread }} unread)</div></div>
+  <div class="stat"><div class="num">{{ today_visits }}</div><div class="label">visits today</div></div>
+  <div class="stat"><div class="num">{{ total_visits }}</div><div class="label">total visits</div></div>
+</div>
+<div class="card">
+  <h3>Quick links</h3>
+  <p><a href="{{ url_for('admin_projects') }}">→ manage projects</a></p>
+  <p><a href="{{ url_for('admin_skills') }}">→ manage skills</a></p>
+  <p><a href="{{ url_for('admin_experience') }}">→ manage experience</a></p>
+  <p><a href="{{ url_for('admin_achievements') }}">→ manage achievements</a></p>
+  <p><a href="{{ url_for('admin_messages') }}">→ view contact messages</a></p>
+  <p><a href="{{ url_for('admin_analytics') }}">→ visit analytics</a></p>
+  <p><a href="/" target="_blank">→ view live site</a></p>
+</div>
+{% endblock %}
